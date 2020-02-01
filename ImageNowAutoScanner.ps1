@@ -12,19 +12,25 @@ try {
     $process = Get-Process -Name "imagenow" -ErrorAction Stop
 }
 catch [Microsoft.PowerShell.Commands.ProcessCommandException] {
-    Write-Output "Imagenow is not running, please run it and log into the system before proceeding."
+    Read-Host "Imagenow (Perceptive Content) is not running, please run it and log into the system before proceeding. Press any key to continue"
     return
 }
 
 $files = Get-ChildItem -Path ".\*.pdf"
-$confirmation = Read-Host "Printing $($files.Count) files to Imagenow. Do you want to proceed? [Y] or [N]?"
 
-if ($confirmation -ne "y" -and $confirmation -ne "yes") {
-    Write-Output "Operation cancelled."
+if ($files.Count -le 0) {
+    Read-Host "No PDF files found in the current folder. Press any key to exit."
     return
 }
 
-$intervalBetweenFiles = 5 #seconds
+$confirmation = Read-Host "Printing $($files.Count) files to Imagenow. Do you want to proceed? [Y] or [N]?"
+
+if ($confirmation -ne "y" -and $confirmation -ne "yes") {
+    Read-Host "Operation cancelled. Press any key to exit"
+    return
+}
+
+$intervalBetweenFiles = 5 #in seconds
 
 # Print files
 foreach ($file in $files) {
@@ -39,3 +45,4 @@ foreach ($file in $files) {
     # Move items to processed folder
     Move-Item -Path $file -Destination "Processed"
 }
+
