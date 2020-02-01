@@ -1,5 +1,5 @@
 # ImageNow Scan Automator
-To avoid having to open every PDF document manually, this Powershell script automates this task and prints all PDFs in the current directory to the ImageNow (Perceptive Content) printer
+To avoid having to open every PDF document manually to create a new ImageNow file batch for each, this Powershell script automates this task and prints all PDFs in the current directory to the ImageNow (Perceptive Content) printer
 
 ## How it works
 This script will read all PDF files in the current directory, print them to the ImageNow Printer and then move the processed files to a "Processed" folder. A document is processed every 5 seconds by default (defined in the ``$intervalBetweenFiles`` variable).
